@@ -25,6 +25,9 @@ const App = () => {
     setCity(res.data.name);
   };
 
+  let k = weather.temp;
+  let C = k - 273.15;
+
   return (
     <div className="App">
       <div className="bottom">
@@ -38,13 +41,12 @@ const App = () => {
           <h2>{city}</h2>
         </div>
         <div className="temp">
-          <p>Temp: {weather.temp}</p>
+          <p>Temp: {C.toFixed(2)}</p>
           <p></p>
         </div>
         <div className="icon"></div>
 
         <div className="feels-like">
-          <p className="first">Feels like: {weather.temp}</p>
           <p className="second">
             Humidity: {weather.humidity}
             <br />
