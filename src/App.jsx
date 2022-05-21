@@ -5,6 +5,8 @@ import axios from "axios";
 const App = () => {
   const [weather, setWeather] = useState("");
   const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [icon, setIcon] = useState("");
 
   const apiCall = async (e) => {
     e.preventDefault();
@@ -16,41 +18,43 @@ const App = () => {
     const res = await req;
     setWeather({
       descp: res.data.weather[0].description,
+      // icon: res.data.weather[0].icon,
       temp: res.data.main.temp,
       city: res.data.name,
       humidity: res.data.main.humidity,
       press: res.data.main.pressure,
     });
 
+    setIcon(res.data.weather[0].icon);
+    setCountry(res.data.sys.country);
     setCity(res.data.name);
   };
 
   let k = weather.temp;
   let C = k - 273.15;
 
+  let temp = C.toFixed(1);
+  let iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+
   return (
     <div className="App">
-      <div className="bottom">
+      <div className="container">
         <div className="input">
           <form onSubmit={apiCall} className="form">
-            <input type="text" placeholder="city" name="loc" />
+            <input type="text" placeholder="Enter City" name="loc" id="input" />
+            <br />
             <button className="bttn">Search</button>
           </form>
         </div>
         <div className="title">
-          <h2>{city}</h2>
-        </div>
-        <div className="temp">
-          <p>Temp: {C.toFixed(2)}</p>
-          <p></p>
-        </div>
-        <div className="icon"></div>
-
-        <div className="feels-like">
-          <p className="second">
-            Humidity: {weather.humidity}
-            <br />
+          <h2>City: {city}</h2>
+          <p>Country: {country}</p>
+          <p className="temp">
+            Temp: {temp === "NaN" ? "" : <img src={iconUrl} />}
           </p>
+
+          <p>Description: {weather.descp}</p>
+          <p>Humidity: {weather.humidity}</p>
         </div>
       </div>
     </div>
