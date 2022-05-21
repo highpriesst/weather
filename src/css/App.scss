@@ -40,8 +40,9 @@
       display: flex;
       align-items: center;
 
-      img {
-        float: left;
+      .temp {
+        justify-content: center;
+        align-items: center;
       }
     }
 

@@ -50,7 +50,15 @@ const App = () => {
           <h2>City: {city}</h2>
           <p>Country: {country}</p>
           <p className="temp">
-            Temp: {temp === "NaN" ? "" : <img src={iconUrl} />}
+            Temp:{" "}
+            {temp === "NaN" ? (
+              ""
+            ) : (
+              <>
+                <span>{temp}</span>
+                <img src={iconUrl} style={{ height: "35px", width: "35px" }} />
+              </>
+            )}
           </p>
 
           <p>Description: {weather.descp}</p>
